@@ -9,6 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//СЛОЙ ДАННЫХ
 //абстрактный источник данных, не зависит от базы данных. Чтобы Main Activity не знала, что мы используем Retrofit/OkHttp/др. библиотеку, чтобы не переписывать пол проекта
 //чтобы абстрагироваться от конкретной используемой библиотеки
 

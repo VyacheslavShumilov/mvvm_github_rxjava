@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.rxjava.myapplication.R
 import com.rxjava.myapplication.app
 import com.rxjava.myapplication.databinding.ActivityMainBinding
 import com.rxjava.myapplication.domain.entities.UserEntity
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun extractViewModel(): UsersContract.ViewModel {
         return lastCustomNonConfigurationInstance as? UsersContract.ViewModel
-            ?: UsersViewModel(app.usersRepo)
+            ?: UsersViewModel(app.usersRepo)        //т.к. Activity это Context к Context доавлено разрешение "app", получил доступ к SingleTone (класс App). Вместо "applicationContext as App"
     }
 
     override fun onRetainCustomNonConfigurationInstance(): UsersContract.ViewModel {
