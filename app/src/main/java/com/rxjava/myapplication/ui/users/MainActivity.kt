@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             ?: UsersViewModel(app.usersRepo)        //т.к. Activity это Context к Context доавлено разрешение "app", получил доступ к SingleTone (класс App). Вместо "applicationContext as App"
     }
 
+    //сохранение состояния ViewModel, чпозволяет пережить объектам (сссылкам на них) поворот активити
     override fun onRetainCustomNonConfigurationInstance(): UsersContract.ViewModel {
         return viewModel
     }
