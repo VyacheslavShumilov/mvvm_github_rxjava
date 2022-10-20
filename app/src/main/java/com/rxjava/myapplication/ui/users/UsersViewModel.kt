@@ -6,6 +6,11 @@ import com.rxjava.myapplication.domain.entities.UsersEntity
 import com.rxjava.myapplication.domain.repos.UsersRepo
 import com.rxjava.myapplication.utils.SingleEventLiveData
 
+// ViewModel решает особенность/проблему восстановления состояния (при повороте экрана)
+// При применении ViewModel сохранилась проблема состояний при котором порядок вызова функций имеет значение
+// Кроме того, LiveData не поддерживает из коробки режим одноразового события SingleEvent
+
+
 class UsersViewModel (private val usersRepo: UsersRepo) : UsersContract.ViewModel {
 
     // если не прописать тип "LiveData<List<UsersEntity>>" наружу все будут думать, что это и есть MutableLiveData(). Полиморфизм в действии)
@@ -52,6 +57,4 @@ class UsersViewModel (private val usersRepo: UsersRepo) : UsersContract.ViewMode
     // private val _usersLiveData: MutableLiveData<List<UsersEntity>>()
     // override val usersLiveData: LiveData<List<UsersEntity>>
     // get() = _usersLiveData
-
-
 }
