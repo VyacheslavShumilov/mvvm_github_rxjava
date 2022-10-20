@@ -8,30 +8,36 @@ import com.rxjava.myapplication.domain.entities.UserEntity
 class UsersAdapter(
     private val onItemClickListener: (UserEntity) -> Unit
 ) : RecyclerView.Adapter<UsersViewHolder>() {
+
     private val data = mutableListOf<UserEntity>()
 
-    init {
-        setHasStableIds(true)
-    }
-
+    //setHasStableIds и getItemId автоматически сравнивает объекты equals содержимого, при этом различает объекты по ID
+    init { setHasStableIds(true) }
     override fun getItemId(position: Int) = getItem(position).id
 
+
+    //создание ViewHolder сколько видно на экране + еще несколько
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         UsersViewHolder(parent, onItemClickListener)
 
+    //свзяь ViewHolder с данными
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
+    //кол-во для отрисовки
     override fun getItemCount() = data.size
 
+    //можно добавить фунцию - возвращение элемента по позиции
     private fun getItem(pos: Int) = data[pos]
 
+
+    //сообщить в адаптер о имеющихся данных
     @SuppressLint("NotifyDataSetChanged")
     fun setData(users: List<UserEntity>) {
-        data.clear()
-        data.addAll(users)
-        notifyDataSetChanged()
+        data.clear()            //предыдущие данные исключаются
+        data.addAll(users)      //добавление новых данных
+        notifyDataSetChanged()  //уведомление о изменении данных
     }
 
 }
