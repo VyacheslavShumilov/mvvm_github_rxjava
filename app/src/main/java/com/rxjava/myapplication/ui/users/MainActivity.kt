@@ -14,6 +14,7 @@ import com.rxjava.myapplication.ui.profile.ProfileActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     private val adapter = UsersAdapter {
         viewModel.onUserClick(it)
     }

@@ -12,13 +12,13 @@ class UsersAdapter(
     private val data = mutableListOf<UserEntity>()
 
     //setHasStableIds и getItemId автоматически сравнивает объекты equals содержимого, при этом различает объекты по ID
-    init { setHasStableIds(true) }
+    init { setHasStableIds(true) }  //у объектов почти всегда есть ID по которым их можно отличать
     override fun getItemId(position: Int) = getItem(position).id
 
 
     //создание ViewHolder сколько видно на экране + еще несколько
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        UsersViewHolder(parent, onItemClickListener)
+    //в данном случае применен принцип разнесения логики (Наполнение Item перенесено из адаптера в отдельный класс UsersViewHolder)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = UsersViewHolder(parent, onItemClickListener)
 
     //свзяь ViewHolder с данными
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
