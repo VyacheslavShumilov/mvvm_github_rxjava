@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rxjava.myapplication.app
 import com.rxjava.myapplication.databinding.ActivityMainBinding
-import com.rxjava.myapplication.domain.entities.UserEntity
+import com.rxjava.myapplication.domain.entities.UsersEntity
 import com.rxjava.myapplication.ui.profile.ProfileActivity
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         showProgress(false)
     }
 
-    private fun showUsers(users: List<UserEntity>) {
+    private fun showUsers(users: List<UsersEntity>) {
         adapter.setData(users)
     }
 

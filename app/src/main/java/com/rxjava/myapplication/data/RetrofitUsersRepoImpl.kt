@@ -1,7 +1,7 @@
 package com.rxjava.myapplication.data
 
 import com.rxjava.myapplication.data.retrofit.GithubApi
-import com.rxjava.myapplication.domain.entities.UserEntity
+import com.rxjava.myapplication.domain.entities.UsersEntity
 import com.rxjava.myapplication.domain.repos.UsersRepo
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,11 +21,11 @@ class RetrofitUsersRepoImpl : UsersRepo {
     private val api: GithubApi = retrofit.create(GithubApi::class.java)
 
 
-    override fun getUsers(onSuccess: (List<UserEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
-        api.getUsers().enqueue(object : Callback<List<UserEntity>> {
+    override fun getUsers(onSuccess: (List<UsersEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
+        api.getUsers().enqueue(object : Callback<List<UsersEntity>> {
             override fun onResponse(
-                call: Call<List<UserEntity>>,
-                response: Response<List<UserEntity>>
+                call: Call<List<UsersEntity>>,
+                response: Response<List<UsersEntity>>
             ) {
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
@@ -35,7 +35,7 @@ class RetrofitUsersRepoImpl : UsersRepo {
                 }
             }
 
-            override fun onFailure(call: Call<List<UserEntity>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UsersEntity>>, t: Throwable) {
                 onError?.invoke(t)
             }
 

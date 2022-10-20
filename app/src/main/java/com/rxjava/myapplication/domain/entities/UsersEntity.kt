@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 // UI зависит от DOMAIN (МОДЕЛЬ) и не зависит от DATA (ДАННЫЕ). Чтобы UI не зависел от DATA введен класс Application
 
 
-data class UserEntity(
+data class UsersEntity(
     val login: String,
     val id: Long,
     @SerializedName("avatar_url")

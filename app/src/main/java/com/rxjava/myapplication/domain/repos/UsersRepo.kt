@@ -1,6 +1,6 @@
 package com.rxjava.myapplication.domain.repos
 
-import com.rxjava.myapplication.domain.entities.UserEntity
+import com.rxjava.myapplication.domain.entities.UsersEntity
 
 //бизнес-логика
 
@@ -14,7 +14,7 @@ interface UsersRepo {
     // Read
     //асинхронный подход, два Callback'a
     fun getUsers(
-        onSuccess: (List<UserEntity>) -> Unit,  //функция ничего не возвращает
+        onSuccess: (List<UsersEntity>) -> Unit,  //функция ничего не возвращает
         onError: ((Throwable) -> Unit)? = null  //
     )
 

@@ -1,6 +1,6 @@
 package com.rxjava.myapplication.data.retrofit
 
-import com.rxjava.myapplication.domain.entities.UserEntity
+import com.rxjava.myapplication.domain.entities.UsersEntity
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -9,5 +9,5 @@ import retrofit2.http.GET
 
 interface GithubApi {
     @GET("users")
-    fun getUsers(): Call<List<UserEntity>>
+    fun getUsers(): Call<List<UsersEntity>>
 }
