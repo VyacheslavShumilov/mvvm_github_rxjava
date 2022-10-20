@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GitHub RxJava</string>
+    <string name="main_activity_refresh_btn">Refresh!</string>
 </resources>
