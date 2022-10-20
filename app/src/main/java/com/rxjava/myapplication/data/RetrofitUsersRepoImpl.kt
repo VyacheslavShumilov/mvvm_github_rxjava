@@ -1,5 +1,6 @@
-package com.rxjava.myapplication.data.retrofit
+package com.rxjava.myapplication.data
 
+import com.rxjava.myapplication.data.retrofit.GithubApi
 import com.rxjava.myapplication.domain.entities.UserEntity
 import com.rxjava.myapplication.domain.repos.UsersRepo
 import retrofit2.Call
@@ -7,6 +8,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+//абстрактный источник данных, не зависит от базы данных. Чтобы Main Activity не знала, что мы используем Retrofit/OkHttp/др. библиотеку, чтобы не переписывать пол проекта
+//чтобы абстрагироваться от конкретной используемой библиотеки
 
 class RetrofitUsersRepoImpl : UsersRepo {
     private val retrofit = Retrofit.Builder()
