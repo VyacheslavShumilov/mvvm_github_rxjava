@@ -16,10 +16,10 @@ interface UsersContract {
         val usersLiveData: LiveData<List<UsersEntity>>
         val errorLiveData: LiveData<Throwable>
         val progressLiveData: LiveData<Boolean>
-        val openProfileLiveData: LiveData<Unit>
+        val openProfileLiveData: LiveData<Unit> // для открытия новой активити
 
         fun onRefresh()     //управляющий метод
-        fun onUserClick(usersEntity: UsersEntity)
+        fun onUserClick(usersEntity: UsersEntity)   // обработка нажатия на юзера в списке
     }
 
 }
