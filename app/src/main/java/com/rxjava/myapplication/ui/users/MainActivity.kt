@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     // вместо override -> private
     private fun showUsers(users: List<UsersEntity>) {
         adapter.setData(users)
@@ -90,5 +89,4 @@ class MainActivity : AppCompatActivity() {
         binding.usersRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.usersRecyclerView.adapter = adapter
     }
-
 }

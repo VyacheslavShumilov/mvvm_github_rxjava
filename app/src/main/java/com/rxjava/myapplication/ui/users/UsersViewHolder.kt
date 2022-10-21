@@ -29,5 +29,4 @@ class UsersViewHolder (parent: ViewGroup, private val inItemClickListener: (user
         binding.loginTextView.text = usersEntity.login
         binding.uidTextView.text = usersEntity.id.toString()
     }
-
 }

@@ -10,17 +10,15 @@ import com.rxjava.myapplication.utils.SingleEventLiveData
 // При применении ViewModel сохранилась проблема состояний при котором порядок вызова функций имеет значение
 // Кроме того, LiveData не поддерживает из коробки режим одноразового события SingleEvent
 
-
 class UsersViewModel (private val usersRepo: UsersRepo) : UsersContract.ViewModel {
 
-    // если не прописать тип "LiveData<List<UsersEntity>>" наружу все будут думать, что это и есть MutableLiveData(). Полиморфизм в действии)
+    // если не прописать тип "LiveData<List<UsersEntity>>" наружу все будут думать, что это и есть MutableLiveData(). Полиморфизм в действии
     // LiveData кэширует значение, запоминает последнее переданное значение и все кто подписываются сразу получают это значение. Например, поворачиваю экран и получаю актуальное состояние, просто подписавшись заново на эти View
     // хранение реализовано ВНУТРИ LiveData. В отличие от Presenter состояния не храним, достаточно LiveData, которая заменяет собой View
     override val usersLiveData: LiveData<List<UsersEntity>> = MutableLiveData()
-    override val errorLiveData: LiveData<Throwable> = SingleEventLiveData() // single event
+    override val errorLiveData: LiveData<Throwable> = SingleEventLiveData() // в качествк single event выступает errorLiveData
     override val progressLiveData: LiveData<Boolean> = MutableLiveData()
     override val openProfileLiveData: LiveData<Unit> = SingleEventLiveData()
-
 
     override fun onRefresh() {
         loadData()
