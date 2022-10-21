@@ -15,11 +15,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    //сообщить ViewModel, что был нажат элемент списка и в метод onUserClick(it) передать того юзера, на которого нажали (it)
     private val adapter = UsersAdapter {
         viewModel.onUserClick(it)
     }
 
-    //вместо Psesenter - ViewModel, attach() и detach() не нужны. LiveData умеет отпысываться, т.к. она подключена к жизненному циклу. Без LiveData в MVVM нужно вручную отписыватся
+    //вместо Presenter - ViewModel, attach() и detach() не нужны. LiveData умеет отпысываться, т.к. она подключена к жизненному циклу. Без LiveData в MVVM нужно вручную отписыватся
 
     private lateinit var viewModel: UsersContract.ViewModel
 
@@ -41,12 +42,16 @@ class MainActivity : AppCompatActivity() {
         // технически ссылка у ViewModel на MainActivity есть (this). Некорректно говорить, что ViewModel отвязалась от View (Activity) и больше ничего о ней формально не знает...
         // ...знание как о классов друг о друге пропало, но хранение ссылки осталось. Связанность все-равно есть
 
+        // После поворота экрана подписываюсь на errorLiveData заново, заново создается observer (метод observe() в SingleEventLiveData
+
         viewModel.progressLiveData.observe(this) { showProgress(it) }
         viewModel.usersLiveData.observe(this) { showUsers(it) }
         viewModel.errorLiveData.observe(this) { showError(it) }
-        viewModel.openProfileLiveData.observe(this) { openProfileScreen() }
+        viewModel.openProfileLiveData.observe(this) { openProfileScreen() } //зажгли событие (переход на новый экран) в UsersViewModel,а в Activity его нужно поймать.
+                                                                                   // Но в названии LiveDat'ы лучше не писать openScreen т.к. как именно будет выглядеть информация Активити не должна знать
     }
 
+    //правильно Intent создавать  в Activity, а не в ViewModel
     private fun openProfileScreen() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
@@ -56,7 +61,8 @@ class MainActivity : AppCompatActivity() {
             ?: UsersViewModel(app.usersRepo)        //т.к. Activity это Context к Context доавлено разрешение "app", получил доступ к SingleTone (класс App). Вместо "applicationContext as App"
     }
 
-    //сохранение состояния ViewModel, чпозволяет пережить объектам (сссылкам на них) поворот активити
+    //метод срабатывает при повороте экрана/пересоздании активити, когда уничтожается активити и пересоздается заново. В этом случае запоминается ссылка на хранилище ViewModel'ей
+    //сохранение состояния ViewModel, позволяет пережить объектам (сссылкам на них) поворот активити
     override fun onRetainCustomNonConfigurationInstance(): UsersContract.ViewModel {
         return viewModel
     }
@@ -69,7 +75,6 @@ class MainActivity : AppCompatActivity() {
 
         showProgress(false)
     }
-
 
 
     // вместо override -> private
@@ -90,5 +95,4 @@ class MainActivity : AppCompatActivity() {
         binding.usersRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.usersRecyclerView.adapter = adapter
     }
-
 }

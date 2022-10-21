@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 //СЛОЙ ДАННЫХ
-//абстрактный источник данных, не зависит от базы данных. Чтобы Main Activity не знала, что мы используем Retrofit/OkHttp/др. библиотеку, чтобы не переписывать пол проекта
+//абстрактный источник данных, не зависит от базы данных. Чтобы Main Activity не знала, что конкретно используется Retrofit/OkHttp/др. библиотека, чтобы не переписывать пол проекта
 //чтобы абстрагироваться от конкретной используемой библиотеки
 
 class RetrofitUsersRepoImpl : UsersRepo {
@@ -38,8 +38,6 @@ class RetrofitUsersRepoImpl : UsersRepo {
             override fun onFailure(call: Call<List<UsersEntity>>, t: Throwable) {
                 onError?.invoke(t)
             }
-
         })
     }
-
 }

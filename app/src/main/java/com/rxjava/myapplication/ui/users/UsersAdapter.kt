@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rxjava.myapplication.domain.entities.UsersEntity
 
-class UsersAdapter(
-    private val onItemClickListener: (UsersEntity) -> Unit
-) : RecyclerView.Adapter<UsersViewHolder>() {
+// Адаптер должен быть максимально простым, детали реализации перенесены в UsersViewHolder (Адаптер зависит от UsersViewHolder)
+// Для клина по юзеру вместо создания Интерфейса в конструктор UsersAdapter МОЖНО передать лямбду (как вариант)
+class UsersAdapter(private val onItemClickListener: (UsersEntity) -> Unit) : RecyclerView.Adapter<UsersViewHolder>() {
 
     private val data = mutableListOf<UsersEntity>()
 
