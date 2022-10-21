@@ -38,8 +38,6 @@ class RetrofitUsersRepoImpl : UsersRepo {
             override fun onFailure(call: Call<List<UsersEntity>>, t: Throwable) {
                 onError?.invoke(t)
             }
-
         })
     }
-
 }

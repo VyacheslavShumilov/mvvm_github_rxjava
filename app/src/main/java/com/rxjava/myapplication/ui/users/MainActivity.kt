@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.onUserClick(it)
     }
 
-    //вместо Psesenter - ViewModel, attach() и detach() не нужны. LiveData умеет отпысываться, т.к. она подключена к жизненному циклу. Без LiveData в MVVM нужно вручную отписыватся
+    //вместо Presenter - ViewModel, attach() и detach() не нужны. LiveData умеет отпысываться, т.к. она подключена к жизненному циклу. Без LiveData в MVVM нужно вручную отписыватся
 
     private lateinit var viewModel: UsersContract.ViewModel
 
@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         // ViewModel вызывает фукнции/сэтить значения в LiveData (а не напрямую в View)
         // технически ссылка у ViewModel на MainActivity есть (this). Некорректно говорить, что ViewModel отвязалась от View (Activity) и больше ничего о ней формально не знает...
         // ...знание как о классов друг о друге пропало, но хранение ссылки осталось. Связанность все-равно есть
+
+        // После поворота экрана подписываюсь на errorLiveData заново, заново создается observer (метод observe() в SingleEventLiveData
 
         viewModel.progressLiveData.observe(this) { showProgress(it) }
         viewModel.usersLiveData.observe(this) { showUsers(it) }

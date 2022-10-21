@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SingleEventLiveData<T> : MutableLiveData<T>() {
     private val pending = AtomicBoolean(false)      //3) делаю это значение false. Это значит значение не новое  (переменная pending ожидающая потокобезопасный boolean)
 
+    // observer: Observer -> это в MainActivity часть кода { showError(it) } или LiveData
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
@@ -28,6 +29,7 @@ class SingleEventLiveData<T> : MutableLiveData<T>() {
         })
     }
 
+    // аннотация @MainThread говорит о том, что метод вызывается на главном потоке
     @MainThread
     override fun setValue(t: T?) {
         pending.set(true)       // 1) Если setValue() случилось новое значение, ожидаю его отправки. Говорою, что это новое значение
