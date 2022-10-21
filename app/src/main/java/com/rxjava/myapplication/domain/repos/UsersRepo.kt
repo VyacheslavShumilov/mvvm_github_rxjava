@@ -5,7 +5,7 @@ import com.rxjava.myapplication.domain.entities.UsersEntity
 //бизнес-логика
 
 interface UsersRepo {
-    // Стандатрный интерфейс обращения к данным, отвечающий контракту C_R_UD
+    // Стандатрный интерфейс обращения к данным, отвечающий контракту CRUD
     // (-) Create
     // Read
     // (-) Update
