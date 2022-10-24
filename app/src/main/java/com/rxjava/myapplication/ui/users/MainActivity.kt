@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun extractViewModel(): UsersContract.ViewModel {
         return lastCustomNonConfigurationInstance as? UsersContract.ViewModel
-            ?: UsersViewModel(app.usersRepo)        //т.к. Activity это Context к Context доавлено разрешение "app", получил доступ к SingleTone (класс App). Вместо "applicationContext as App"
+            ?: UsersViewModel(app.usersRepo)        //т.к. Activity это Context к Context добавлено разрешение "app", получил доступ к SingleTone (класс App). Вместо "applicationContext as App"
     }
 
     //метод срабатывает при повороте экрана/пересоздании активити, когда уничтожается активити и пересоздается заново. В этом случае запоминается ссылка на хранилище ViewModel'ей
