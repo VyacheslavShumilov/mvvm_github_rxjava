@@ -36,8 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
 
-
-        // 2022.10.20 работа с LiveData
+        /* 2022.10.20 работа с LiveData
         //изменяются значения ViewModel (interface в UsersContract). Нужно (и можно) только подписаться на ViewModel'и, т.к. тип LiveData
         // через observe() подписка на переменные. Переменные измменятся (progressLiveData и т.д.) -> вызовутся функции showProgress/showUsers и т.д.
         // ViewModel вызывает фукнции/сэтить значения в LiveData (а не напрямую в View)
@@ -46,11 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         // После поворота экрана подписываюсь на errorLiveData заново, заново создается observer (метод observe() в SingleEventLiveData
 
-        //viewModel.progressLiveData.observe(this) { showProgress(it) }
-        //viewModel.usersLiveData.observe(this) { showUsers(it) }
-        //viewModel.errorLiveData.observe(this) { showError(it) }
-        //viewModel.openProfileLiveData.observe(this) { openProfileScreen() } //зажгли событие (переход на новый экран) в UsersViewModel,а в Activity его нужно поймать.
+        viewModel.progressLiveData.observe(this) { showProgress(it) }
+        viewModel.usersLiveData.observe(this) { showUsers(it) }
+        viewModel.errorLiveData.observe(this) { showError(it) }
+        viewModel.openProfileLiveData.observe(this) { openProfileScreen() } //зажгли событие (переход на новый экран) в UsersViewModel,а в Activity его нужно поймать.
         // Но в названии LiveDat'ы лучше не писать openScreen т.к. как именно будет выглядеть информация Активити не должна знать
+         */
+
         viewModel = extractViewModel()
 
         // 2022.10.24 Замена LiveData на Observable. Концептуально - одно и то же,
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // Решается проблема жизненного цикла (например при повороте экрана происходит отписка от ВСЕХ подписок). Но этот подход стараются заменить на Корутины
+    // Решается проблема жизненного цикла (например при повороте экрана происходит отписка от ВСЕХ подписок).
     override fun onDestroy() {
         viewModelDisposable.dispose()
         super.onDestroy()

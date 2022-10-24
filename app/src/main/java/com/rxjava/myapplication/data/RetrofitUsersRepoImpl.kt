@@ -25,6 +25,7 @@ class RetrofitUsersRepoImpl : UsersRepo {
     private val api: GithubApi = retrofit.create(GithubApi::class.java)
 
 
+    // 2022.10.24 с RxJava
     override fun getUsers(onSuccess: (List<UsersEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
         // теперь getUsers() возвращает Observable, подписываемся на него. Приходят данные/
         // методом subscribe() подписываемся и передаем два Callback и ждем результат.
@@ -39,27 +40,28 @@ class RetrofitUsersRepoImpl : UsersRepo {
         )
     }
 
-    /* Код Без RxJava
-//        api.getUsers().enqueue(object : Callback<List<UsersEntity>> {
-//            override fun onResponse(
-//                call: Call<List<UsersEntity>>,
-//                response: Response<List<UsersEntity>>
-//            ) {
-//                val body = response.body()
-//                if (response.isSuccessful && body != null) {
-//                    onSuccess.invoke(body)
-//                } else {
-//                    onError?.invoke(IllegalStateException("Данных нет или ошибка"))
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<UsersEntity>>, t: Throwable) {
-//                onError?.invoke(t)
-//            }
-//        })
+    override fun getUsers(): Single<List<UsersEntity>> = api.getUsers()
 
-    */
+    /* 2022.10.20 Без RxJava
+        api.getUsers().enqueue(object : Callback<List<UsersEntity>> {
+            override fun onResponse(
+                call: Call<List<UsersEntity>>,
+                response: Response<List<UsersEntity>>
+            ) {
+                val body = response.body()
+                if (response.isSuccessful && body != null) {
+                    onSuccess.invoke(body)
+                } else {
+                    onError?.invoke(IllegalStateException("Данных нет или ошибка"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<UsersEntity>>, t: Throwable) {
+                onError?.invoke(t)
+            }
+        })
 
     override fun getUsers(): Single<List<UsersEntity>> = api.getUsers()
+    */
 
 }

@@ -19,6 +19,7 @@ interface UsersRepo {
         onError: ((Throwable) -> Unit)? = null  //
     )
 
-    fun getUsers(): Single<List<UsersEntity>>
+
+    fun getUsers(): Single<List<UsersEntity>>  //возвращает реактивный объект Single, на который можно подписаться
 
 }
