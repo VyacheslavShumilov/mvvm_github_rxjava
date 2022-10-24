@@ -1,6 +1,7 @@
 package com.rxjava.myapplication.domain.repos
 
 import com.rxjava.myapplication.domain.entities.UsersEntity
+import io.reactivex.rxjava3.core.Single
 
 //бизнес-логика. Описаны методы доступа к данным
 
@@ -17,5 +18,7 @@ interface UsersRepo {
         onSuccess: (List<UsersEntity>) -> Unit,  //функция ничего не возвращает
         onError: ((Throwable) -> Unit)? = null  //
     )
+
+    fun getUsers(): Single<List<UsersEntity>>
 
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.rxjava.myapplication.domain.entities.UsersEntity
 import com.rxjava.myapplication.domain.repos.UsersRepo
 import com.rxjava.myapplication.utils.SingleEventLiveData
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
 // ViewModel решает особенность/проблему восстановления состояния (при повороте экрана)
 // При применении ViewModel сохранилась проблема состояний при котором порядок вызова функций имеет значение
@@ -28,6 +29,7 @@ class UsersViewModel (private val usersRepo: UsersRepo) : UsersContract.ViewMode
         loadData()
     }
 
+
     // Цепочка обработки клика на юзера в списке: ViewHolder -> Adapter -> Contract -> Activity -> ViewModel
     // ViewModel ловит клик на юреза из списка и принимает решение, что делать дальше (открываем/сохраняем/удаляем и т.п.).
     // Логика принятия решения лежит полностью на ViewModel
@@ -42,7 +44,9 @@ class UsersViewModel (private val usersRepo: UsersRepo) : UsersContract.ViewMode
 
     private fun loadData() {
         progressLiveData.mutable().postValue(true)
-        usersRepo.getUsers(
+
+        // Код при применении rxjava. Пробрасываю событие напрямую
+        usersRepo.getUsers().subscribeBy(
             onSuccess = {
                 progressLiveData.mutable().postValue(false)
                 usersLiveData.mutable().postValue(it)
@@ -52,6 +56,19 @@ class UsersViewModel (private val usersRepo: UsersRepo) : UsersContract.ViewMode
                 errorLiveData.mutable().postValue(it)
             }
         )
+        /* Код БЕЗ rx java
+//        usersRepo.getUsers(
+//            onSuccess = {
+//                progressLiveData.mutable().postValue(false)
+//                usersLiveData.mutable().postValue(it)
+//            },
+//            onError = {
+//                progressLiveData.mutable().postValue(false)
+//                errorLiveData.mutable().postValue(it)
+//            }
+//        )
+
+ */
     }
 
     // Extension видимый внутри ViewModel - функция превращает LiveData в MutableLiveData
